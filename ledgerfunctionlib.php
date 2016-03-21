@@ -107,4 +107,60 @@ function edit_tx ($id)
 {
 	
 }
+function login_or_create_db(){
+	echo <<<_END
+	<br><br><br><br><form type="post"; action="index.php"><pre>
+	<h3 style="text-align:center">Ledger Name: <input type="text" name="ledgername" size="24" >
+      Password: <input type="password" name="password" size="25">
+
+			 <input type="submit"; value="Login"></h3>
+	</pre></form> 
+_END;
+	echo'one', $_POST['ledgername'];
+	if(isset($_POST['ledgername']) && isset($_POST['password'])){
+		echo'two';
+		$sledgername=sanitize($_POST['ledgername']);
+		$spassword=sanitize($_POST['password']);
+		if(!mysql_select_db($sledgername)) {  // Ledger does not exist, create new?
+			echo'<h3>The Ledger "'.$sledgername.'" does not exist.<br>
+			Would you like to create the ledger?</h3>';
+			echo'<form action="index.php" method="post">';
+			echo'<input type="submit" name="choice"  value="CREATE THIS LEDGER">   
+			<input type="submit" name="choice"  value="RETRY LOGIN">';
+			echo '</form';
+			if(isset($_POST['choice'])){
+				if($_POST['choice']='CREATE THIS LEDGER') $connection=create_db($sledgername, $spassword);  //yes
+			}
+			else login_or_create_db();                                 //no, do not create ledger, retry login
+		}
+		else{                                  //database exists: try opening with supplied credentials
+			$connection=new mysqli($_SESSION['db_host'], $_SESSION['db_username'], $spassword, $sledgername);
+			if (!$connection->connect_errno){
+				echo'Access denied';
+				login_or_create_db();                     //unsuccessful: try again.
+			}
+			else login_success($connection, $sledgername, $spassword);  //successful
+		}
+	}
+}
+function create_db($db_name, $db_password){
+			$connection=new mysqli($_SESSION['db_host'], $_SESSION['db_username'], $db_password, $db_name);
+			//$query='CREATE DATABASE $db_name';
+			//$query='USE $db_name';
+			//$query='GRANT ALL ON $db_name.* TO $_SESSION["db_username"] IDENTIFIED BY $db_password';
+			$query='CREATE TABLE accounts (id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, name VARCHAR(128), type CHAR(1), balance FLOAT, interest FLOAT) ENGINE MyISAM';
+			$result=$connection->query($query);
+			$query='CREATE TABLE categories (id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, name VARCHAR(128), type CHAR(1), tax CHAR(1)) ENGINE MyISAM';
+			$result=$connection->query($query);
+			$query='CREATE TABLE transactions (id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT, date DATE, debitacct INT UNSIGNED, creditacct INT UNSIGNED, amount FLOAT, comment VARCHAR(255)) ENGINE InnoDB';			
+			$result=$connection->query($query);
+			login_success($connection, $sledgername, $spassword);
+}
+function login_success($connection, $sledgername, $spassword){
+	$connection->close();
+	$_SESSION['db_dbname']=$sledgername;
+	$_SESSION['db_password']=$spassword;
+	$_SESSION['auth']='yes';
+	'home.php';
+}
 ?>

@@ -1,0 +1,113 @@
+//Stylesheet for Ledger
+
+body{
+	font-family:verdana;
+	height:100%;
+	width:100%;
+	 }
+
+header{
+	clear:both;
+	position:fixed;
+	box-sizing:border-box;
+	top: 0px;
+	left:0px;
+	height:60px;
+	width:100%;
+	margin:0;
+	padding:5px;
+	background:#77CCAA;
+	background: -moz-radial-gradient(center, #77CCAA, #66AA44);
+	background: -webkit-radial-gradient(center, #77CCAA, #66AA44);
+	background: -o-radial-gradient(center, #77CCAA, #66AA44);
+	background: -ms-radial-gradient(center, #77CCAA, #66AA44);
+	text-align:center;
+	font-family:verdana;
+	}
+nav{
+	position:fixed;
+	box-sizing:border-box;
+	overflow-y:hidden;
+	top: 60px;
+	left:0px;
+	background:#DDDDDD;
+	background: -moz-radial-gradient(center, #EEEEEE, #BBBBBB);
+	background: -webkit-radial-gradient(center, #EEEEEE, #BBBBBB);
+	background: -o-radial-gradient(center, #EEEEEE, #BBBBBB);
+	background: -ms-radial-gradient(center, #EEEEEE, #BBBBBB);
+	height:999;
+	width:130px;
+	padding:10px;
+	font-family:verdana;
+	}
+section{
+	position:fixed;
+	box-sizing:border-box;
+	top:60px;
+	left:130px;
+	overflow-y:scroll;
+	overflow-x:scroll;
+	background-color:"white";
+	height:750px;
+	width:100%;
+	padding: 15px;
+	font-family:verdana;
+	}
+footer{
+	clear:both;
+	position:fixed;
+	box-sizing:border-box;
+	bottom:0px;
+	left: 0px;
+	background:#77CCAA;
+	background: -moz-radial-gradient(center, #77CCAA, #669933);
+	background: -webkit-radial-gradient(center, #77CCAA, #669933);
+	background: -o-radial-gradient(center, #77CCAA, #669933);
+	background: -ms-radial-gradient(center, #77CCAA, #669933);
+	height:50px;
+	width:100%;
+	font-family:verdana;
+	text-align:center;
+	}
+h1{
+	font-size:22px;
+	color: #222222;
+	}
+h2{
+	font-family:verdana;
+	}
+h3{
+	font-family:verdana;
+	}
+table{
+	border:2px solid black; border-collapse:"collapse";
+	}
+tr:nth-child(even){
+	background-color="light gray";
+	}
+tr:nth-child(odd){
+	background-color="white";
+	}
+th, td{
+	border:1px solid gray; padding:3px;
+	}
+a:link{
+	text-decoration:none;
+	background-color:#77CCAA;
+	color:black;
+	}
+a:visited{
+	text-decoration:none;
+	background-color:#77CCAA;
+	color:black;
+	}
+a:hover{
+	text-decoration:none;
+	background-color:#77CCAA;
+	color:yellow;
+	}
+a:active{
+	text-decoration:none;
+	background-color:#77CCAA;
+	color:red;
+	}
